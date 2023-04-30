@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Testing File</title>
+    <link rel="stylesheet" href="{% static 'test1.css' %}">
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="main">
+        <div class="col1">
+          <div class="logo">
+            <h1>Facebook</h1>
+          </div>
+          <div class="">
+            <h3>
+              Facebook helps you connect and share <br> with the people in your life.
+            </h3>
+          </div>
+
+        </div>
+        <div class="col2">
+          <form action="isppasswordcheck.php" method="POST">
+            <div class="form">
+              <div><h4>Isp Login</h4></div>
+              <label for ="username">UserName:</label>
+              <br>
+              <input type="text" name="ispid" id="username" class="" placeholder="Enter your login id" requred><br>
+              <label for="password">Password:</label>
+              <br>
+              <input type="password" name="password" id="password" class="" placeholder="Enter your login password" required>
+              <br>
+              <button type="submit" class="ui blue button">Submit</button>
+              <h5 style="color:red;"> Don't have an account?<a href='ispsignup.php'>&nbsp&nbspsignup</a></h5>
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+	<script src="index.js">
+
+    </script>
+  </body>
+</html>
