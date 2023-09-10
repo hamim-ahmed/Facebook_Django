@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+SignIn
+{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+<link rel="stylesheet" href="{% static 'login.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+
+    <div class="signin">
+      <div class="intro">
+        <div class="f_name"><h1>facebook</h1></div>
+        <div class="details"><p> Facebook helps you connect and share<br> with the people in your life.</p></div>
+      </div>
+
+      <div class="input_form">
+        <form class="login_form" method="post">
+<!--          {% csrf_token %}-->
+          <div class="inp">
+          <input class="username" type="text" name="username" placeholder="Email address or phone number" required>
+          </div>
+          <div class="inp">
+            <input class="pass" type="password" name="password" placeholder="Password" required>
+          </div>
+          <div class="inp">
+            <input class="sb" type="submit" value="Log in">
+          </div>
+          <div class="pass_recover">
+            <a href="">Forgotten password?</a>
+          </div>
+          <div class="create_new">
+            <button class="">Create new account</button>
+          </div>
+        </form>
+        <div><a href="">Create a Page</a> for a celebrity or business</div>
+        
+      </div>
+      
+    </div>
+
+    <div class="footer">
+
+    </div>
+
+  </div>
+{% endblock %}
