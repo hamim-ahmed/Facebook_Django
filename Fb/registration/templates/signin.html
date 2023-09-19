@@ -20,6 +20,15 @@ SignIn
       </div>
 
       <div class="input_form">
+            {% if messages %}
+            <div class="alert alert-success">
+                <ul>
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
         <form class="login_form" method="post">
 <!--          {% csrf_token %}-->
           <div class="inp">
@@ -35,7 +44,7 @@ SignIn
             <a href="">Forgotten password?</a>
           </div>
           <div class="create_new">
-            <button class="">Create new account</button>
+            <button class="signup"><a href="{% url 'signup' %}">Create new account</a> </button>
           </div>
         </form>
         <div><a href="">Create a Page</a> for a celebrity or business</div>

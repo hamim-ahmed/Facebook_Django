@@ -1,0 +1,136 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+
+    <!-- <div>
+        <a href="{% url 'main:logout' %}">logout</a>
+
+    </div> -->
+    <div class="main">
+      <div class="topbar">
+
+        <div class="logo">
+          <div class="fb"><i class="big facebook icon"></i></div>
+          <div class="search">
+            <i class="search icon"></i>
+            <input  class="srch" type="text" placeholder="Search Facebook">
+          </div>
+        </div>
+
+        <div class="nav_icon">
+          <div><a href="{% url 'main:home' %}"> <i class="big home icon"></i></a></div>
+          <div><i class=" big youtube square icon"></i></div>
+          <div> <i class="big shopping cart icon"></i></div>
+          <div> <i class="big users icon"></i></div>
+
+        </div>
+
+        <div class="profile">
+          <div><a href="{% url 'main:profile' %}"> <i class="big user circle icon"></i></a></div>
+          <div><a href="{% url 'main:logout' %}">logout</a></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="content">
+
+        <div class="main_content"  id="main_content">
+          <div class="dp">
+            <i class="massive user circle icon"></i>
+          </div>
+          <div class="info">
+
+            {% if current_user %}
+            <div><h1>{{ current_user.first_name }} {{current_user.last_name}} ({{user_profile.nick_name}})</h1></div>
+            <div><h2>{{ user_profile.profession }}</h2></div>
+            <div><h3>{{current_user.email}} </h3></div>
+            <div><h3>{{user_profile.address}}</h3></div>
+            {% else %}
+            <p>No user found</p>
+            {% endif %}
+
+          </div>
+          <div v-if="flag" class="update_info">
+             <button class="ui inverted blue button" v-on:click="showForm">Edit Info </button>
+          </div>
+          
+          <div id="popup" class="popup-form">
+            <div class="popup-content">
+              <h2>Edit Info</h2>
+              <form class="update_form" action="updateinfo/" method="post">
+
+                <label>First_Name</label>
+                <input type="text" name="f_name" value="{{ current_user.first_name }}"  required>
+                <label>Last_Name</label>
+                <input type="text" name="l_name" value="{{current_user.last_name}}" required>
+                <label>Nick_Name</label>
+                <input type="text" name="nick_name" value="{{ user_profile.nick_name }}" >
+                <label>Profession</label>
+                <input type="text" name="profession" value="{{user_profile.profession}}">
+                <label>Email</label>
+                <input type="text" name="email" value="{{ current_user.email }}" required>
+                <label>Address</label>
+                <input type="text" name="address" value="{{user_profile.address}}">
+
+                <input class="ui inverted red button" type="submit" value="Update">
+                <button id="concel_form" v-on:click="hideForm" class="ui inverted green button" type="button">Cancel</button>
+              </form>
+            </div>
+          </div>
+
+
+        </div>
+        
+      </div>
+
+    </div>
+
+
+
+
+    <div class="footer">
+
+    </div>
+
+  </div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+  const app = Vue.createApp({
+   data() {
+    return {
+      flag: true
+    }
+   },
+   methods: {
+    showForm(){
+      const x = document.getElementById("popup");
+      alert("Are you sure!");
+      x.style.display="block";
+
+    },
+    hideForm(){
+      const x = document.getElementById("popup");
+      // alert("block");
+      x.style.display="none";
+    }
+
+   }
+
+  })
+  app.mount('#main_content')
+</script>
+{% endblock %}

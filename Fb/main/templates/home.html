@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+<link rel="stylesheet" href="{% static 'home.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+
+    <!-- <div>
+        <a href="{% url 'main:logout' %}">logout</a>
+
+    </div> -->
+    <div class="main">
+      <div class="topbar">
+
+        <div class="logo">
+          <div class="fb"><i class="big facebook icon"></i></div>
+          <div class="search">
+            <i class="search icon"></i>
+            <input  class="srch" type="text" placeholder="Search Facebook">
+          </div>  
+        </div>
+
+        <div class="nav_icon">
+          <!-- <div><i class=" big home icon"></i></div> -->
+          <div><a href="{% url 'main:home' %}"> <i class="big home icon"></i></a></div>
+          <div><i class=" big youtube square icon"></i></div>
+          <div> <i class="big shopping cart icon"></i></div>
+          <div> <i class="big users icon"></i></div>
+          
+        </div>
+
+        <div class="profile">
+          <div><a href="{% url 'main:profile' %}"> <i class="big user circle icon"></i></a></div>
+          <div><a href="{% url 'main:logout' %}">logout</a></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="content">
+        <div class="left_nav">
+
+        </div>
+        <div class="home">
+          <!-- <div class="input_form"> -->
+            <form class="post_form" method="post">
+    <!--          {% csrf_token %}-->
+              <div class="inp">
+                <textarea class="user_post" type="text" name="post" placeholder="What's on your mind?" required></textarea>
+              </div>
+              <div class="inp">
+                <input class="sb" type="submit" value="Post">
+              </div>
+            </form>
+            
+            
+          <!-- </div> -->
+        </div>
+        <div class="right_nav">
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="footer">
+
+    </div>
+
+  </div>
+{% endblock %}

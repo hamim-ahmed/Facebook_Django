@@ -99,6 +99,9 @@ div.create_new>button{
     color: white;
     background-color: rgb(73, 189, 81);
 }
+.create_new>.signup>a {
+    color: white;
+  }
 div.footer{
     display: flex;
     flex-direction: column;

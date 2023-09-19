@@ -1,0 +1,128 @@
+div.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(223, 223, 223);
+}
+div.main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+div.topbar{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 65px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 10px black;
+    
+}
+.topbar>.logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    width: 30%;
+    margin-left: 5px;
+}
+div.fb>i{
+    color: blue;
+    border-radius: 50%;
+    height: 20%;
+}
+div.search{
+    /* border: 1px solid black; */
+    padding: 4px;
+    border-radius: 15px;
+    background-color: rgb(224, 224, 224);
+    width: fit-content;
+}
+div.search>input{
+    border: 0px;
+    background-color: rgb(224, 224, 224);
+    height: 30px;
+    width: 15vw;
+    /* text-align: center; */
+}
+input:focus{
+    border: 0px;
+}
+div.nav_icon{
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    align-items: center;
+    justify-content: space-between;
+}
+div.nav_icon>div{
+    /* margin-right: 20px; */
+}
+div.profile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+    width: 30%;
+    margin-right: 5px;
+}
+div.content{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /* background-color: ; */
+}
+div.left_nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+}
+div.home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 5px 0px black;
+
+}
+div.home>form.post_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+}
+div.inp{
+    width: 100%;
+    text-align: center;
+    border: 10px;
+}
+textarea{
+    height: 100px;
+    width: 90%;
+    max-width: 100%;
+    background-color: rgb(226, 226, 226);
+    border-radius: 15px;
+    margin-bottom: 10px;
+    border: 0px;
+}
+div.right_nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+}

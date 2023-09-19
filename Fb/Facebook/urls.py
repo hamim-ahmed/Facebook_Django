@@ -19,6 +19,7 @@ from django.urls import include   #for imcluding other app urls >>>>> redirect t
 
 urlpatterns = [
     path('', include('registration.urls')),
+    # path('', include('main.urls')),
     path('admin/', admin.site.urls),
 
 ]
