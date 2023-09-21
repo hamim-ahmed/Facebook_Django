@@ -2,8 +2,8 @@ div.container{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
-    background-color: rgb(223, 223, 223);
+    /* height: 100%; */
+    background-color: rgb(243, 243, 243);
 }
 div.main{
     display: flex;
@@ -21,6 +21,8 @@ div.topbar{
     height: 65px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 10px black;
+    position: sticky;
+    top: 0px;
     
 }
 .topbar>.logo{
@@ -66,11 +68,23 @@ div.nav_icon>div{
 div.profile{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: end;
     justify-content: right;
     width: 30%;
     margin-right: 5px;
 }
+div.profile>div.logout{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: end;
+    height: inherit;
+    font-size: 17px;
+    margin-left: 10px;
+}
+
+/* ====================== main content ========================== */
+
 div.content{
     display: flex;
     flex-direction: row;
@@ -83,6 +97,8 @@ div.left_nav{
     align-items: center;
     justify-content: center;
     width: 30%;
+    height: 100vh;
+    /* position: fixed; */
 }
 div.home{
     display: flex;
@@ -93,8 +109,8 @@ div.home{
     margin-top: 20px;
     border-radius: 10px;
     padding: 5px;
-    background-color: white;
-    box-shadow: 0px 0px 5px 0px black;
+    /* background-color: white; */
+    /* box-shadow: 0px 0px 5px 0px black; */
 
 }
 div.home>form.post_form{
@@ -103,21 +119,123 @@ div.home>form.post_form{
     align-items: center;
     justify-content: center;
     width: 100%;
+    box-shadow: 0px 0px 5px 0px black;
+    background-color: white;
+    border-radius:10px;
+    padding: 10px;
+    margin-bottom: 10px;
 
-}
-div.inp{
+}div.inp{
     width: 100%;
     text-align: center;
     border: 10px;
+    
+}
+div.inp>.sb{
+    background-color: white;
 }
 textarea{
-    height: 100px;
+    height: fit-content;
     width: 90%;
     max-width: 100%;
     background-color: rgb(226, 226, 226);
     border-radius: 15px;
     margin-bottom: 10px;
     border: 0px;
+    font-size: 20px;
+}
+div.home>div.content_post{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+div.content_post>div.posts{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: top;
+    width: 100%;
+    min-height: 200px;
+    background-color: white;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    
+    /* font-size: 20px; */
+    /* font-weight: bold; */
+}
+div.posts>div.top{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-family:  sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+div.datetime{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content:center;
+    font-size: 10px;
+    font-weight: bolder;
+}
+div.posts>div.main_post{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 10px;
+    font-size: 17px;
+
+}
+.popup-form {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+  
+  .popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: fit-content;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    
+  }
+  div.cancel_popup{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .popup-form input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .popup-form button {
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    
+  }
+textarea.edit_post{
+    width: 100%;
+    height: 250px;
 }
 div.right_nav{
     display: flex;
@@ -125,4 +243,6 @@ div.right_nav{
     align-items: center;
     justify-content: center;
     width: 30%;
+    height: 100vh;
+    /* position: fixed */
 }

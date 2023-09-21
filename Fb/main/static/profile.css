@@ -68,6 +68,8 @@ div.profile{
     width: 30%;
     margin-right: 5px;
 }
+
+/* ================ main body============== */
 div.content{
     display: flex;
     flex-direction: column;

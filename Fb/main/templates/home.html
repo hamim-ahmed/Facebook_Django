@@ -21,7 +21,8 @@ Home
       <div class="topbar">
 
         <div class="logo">
-          <div class="fb"><i class="big facebook icon"></i></div>
+<!--          <div class="fb"><i class="big facebook icon"></i></div>-->
+          <div><a href="{% url 'main:home' %}"> <i class="big facebook icon"></i></a></div>
           <div class="search">
             <i class="search icon"></i>
             <input  class="srch" type="text" placeholder="Search Facebook">
@@ -33,13 +34,21 @@ Home
           <div><a href="{% url 'main:home' %}"> <i class="big home icon"></i></a></div>
           <div><i class=" big youtube square icon"></i></div>
           <div> <i class="big shopping cart icon"></i></div>
-          <div> <i class="big users icon"></i></div>
+          <div>
+            <div><i class="big users icon"></i></div>
+          </div>
           
         </div>
 
         <div class="profile">
-          <div><a href="{% url 'main:profile' %}"> <i class="big user circle icon"></i></a></div>
-          <div><a href="{% url 'main:logout' %}">logout</a></div>
+
+          <div>
+            <a href="{% url 'main:profile' %}"> <i class="big user circle icon"></i></a>
+            <div><h5>{{ current_user.first_name }}</h5></div>
+          </div>
+          <div class="logout">
+            <a href="{% url 'main:logout' %}">Logout</a>
+          </div>
 
         </div>
 
@@ -52,19 +61,93 @@ Home
         </div>
         <div class="home">
           <!-- <div class="input_form"> -->
-            <form class="post_form" method="post">
+            <form class="post_form" action="createPost/" method="post">
     <!--          {% csrf_token %}-->
               <div class="inp">
                 <textarea class="user_post" type="text" name="post" placeholder="What's on your mind?" required></textarea>
               </div>
               <div class="inp">
-                <input class="sb" type="submit" value="Post">
+                <button class="ui inverted small blue button"><input class="sb" type="submit" value="Post"></button>
+                
               </div>
+              {% if messages %}
+              <div class="alert alert-success">
+                  <ul>
+                      {% for message in messages %}
+                      <li>{{ message }}</li>
+                      {% endfor %}
+                  </ul>
+              </div>
+              {% endif %}
             </form>
+            
+            <div class="content_post" id="main_content">
+
+              {% if user_post %}
+
+                {% for posts in user_post %}
+
+                <div class="posts">
+
+                  <div class="top">
+
+                    <div><i class="large user circle icon"> </i> {{ posts.user.first_name }} {{ posts.user.last_name }}</div>
+                
+                    <div class="datetime">
+                      <div>{{ posts.datetime }}</div>
+                      {% if posts.user.id == current_user.id %}
+                      <div><i class="large edit icon" v-on:click="showForm({{ posts.id}}, '{{ posts.post|linebreaksbr }}')"></i> </div>   <!-- sending posts.post as string >>>multiple variable not allowed as argument -->
+                      {% endif %}
+                    </div>
+
+                  </div>
+
+                  <div class="main_post">
+                    {{posts.post|linebreaks}}        <!-- # to exclude the <br> tag as string -->
+
+                     <!-- post edit form for the user -->
+                    <div id="popup" class="popup-form">
+                      <div class="popup-content">
+
+                        <div class="cancel_popup">
+                          <div><h2>Edit Post</h2></div>
+                          <div><i  class=" x icon"  v-on:click="hideForm({{ posts.id }})"></i></div>
+                        </div>
+                        
+                        <form class="update_form" action="updatepost/" method="post">
+          
+                          <label>Your Post</label>
+                          <textarea id="edit_post" class="edit_post" name="edited" required></textarea>
+                          <input id="user_id" type="hidden" name="post_id">
+                          <input v-on:click="setvalue('update')" id="update_post" name="operation" class="ui inverted green button" type="submit" value="Update">
+                          <input v-on:click="setvalue('delete')" id="delete_post" name="operation" class="ui inverted red button" type="submit" value="Delete Post">
+                          
+
+                        </form>
+                      </div>
+                    </div>
+                    
+                  </div>
+
+                 
+
+                  <div class="bottom">
+                    <!-- bottom comment part of the post -->
+                  </div>
+                  
+                </div>
+
+                {% endfor %}
+
+              {% endif %}
+
+            </div>
             
             
           <!-- </div> -->
+            
         </div>
+
         <div class="right_nav">
 
         </div>
@@ -79,4 +162,47 @@ Home
     </div>
 
   </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+  const app = Vue.createApp({
+  delimiters: ['[[', ']]'], // Use double square brackets as delimiters
+   data() {
+    return {
+      flag: true,
+      post_id: null
+    }
+   },
+   methods: {
+    showForm(post_id, post){
+      const x = document.getElementById("popup");
+      const y = document.getElementById("edit_post");
+      const id = document.getElementById("user_id");
+      const url = `url 'main:deletepost' id = ${post_id}`;
+
+      alert("Are you sure!:");
+      y.innerHTML=post;
+      id.value = post_id;
+      
+      this.post_id = post_id;
+      x.style.display="block";
+    },
+    hideForm(post_id){
+      const x = document.getElementById("popup");
+      // alert("block");
+      console.log(post_id);
+      x.style.display="none";
+    },
+    setvalue(value){
+      const update = document.getElementById("update_post");
+      const dlte  = document.getElementById("delete_post");
+      update.value=value;
+      dlte.value=value;
+    }
+
+   }
+
+  })
+  app.mount('#main_content')
+</script>
 {% endblock %}

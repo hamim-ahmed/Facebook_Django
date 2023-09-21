@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import time
+from django.contrib import messages
 
 from main.models import UserProfile, UserPost
 from django.contrib.auth.models import User
@@ -17,8 +18,24 @@ from django.contrib.auth.models import User
 def home(request):
     user_id = request.session.get('user_id')
     # return HttpResponse(f"<h1>hamim ahmed</h1> {user_id}") # using an f-string to format the HTML content and include the user_id
+    try:
+        user_post = UserPost.objects.all().order_by('-datetime')    #user_id is the primary & foreignkeu for userpost
+        current_user = User.objects.get(id=user_id)
+        # print(user_post,current_user)
+    except UserProfile.DoesNotExist:
+        # Handle the case where the UserProfile does not exist
+        user_profile = None
+        current_user = None
+
+        # Create a context dictionary with the objects to pass to the template
+    context = {
+        'user_post': user_post,
+        'current_user': current_user,
+    }
+    # print(current_user.id)
+
     if request.user.is_authenticated:
-        return render(request, template_name='home.html')
+        return render(request, 'home.html', context)
     else:
         # return HttpResponse("<h1>Authentication failed</h1>")
         time.sleep(2)
@@ -74,6 +91,59 @@ def updateinfo(request):
         current_user = None
     return HttpResponse(f"<h1>info update failed</h1> {f_name}")
 
+def cretePost(request):
+    user_id = request.session.get('user_id')
+    try:
+        user_profile = UserProfile.objects.get(user_id=user_id)
+        current_user = User.objects.get(id=user_id)
+    except UserProfile.DoesNotExist:
+        # Handle the case where the UserProfile does not exist
+        user_profile = None
+        current_user = None
+    if request.method == 'POST':
+        post = request.POST['post']
+        # print(post)
+        current_user = User.objects.get(id=user_id)
+        user_post = UserPost.objects.create(
+            user=current_user,  # Associate the Current_user object with the post as foreignkey
+            post=post,
+        )
+        user_post.save()
+        messages.success(request,'Post Created Successfully')
+        return redirect('/')
+
+def updatePost(request):
+    user_id = request.session.get('user_id')
+    if request.method == 'POST':
+        updated_post = request.POST['edited']
+        post_id = request.POST['post_id']
+        op = request.POST['operation']
+    try:
+        user_post = UserPost.objects.get(id=post_id)
+        current_user = User.objects.get(id=user_id)
+    except UserProfile.DoesNotExist:
+        # Handle the case where the UserProfile does not exist
+        user_profile = None
+        current_user = None
+
+    if request.user.is_authenticated:
+        if op == "update":
+            user_post.post = updated_post
+            user_post.save()
+        if op == "delete":
+            user_post.delete()
+
+
+        # print(updated_post)
+        print(op)
+
+        return redirect('/')
+    else:
+        # return HttpResponse("<h1>Authentication failed</h1>")
+        time.sleep(2)
+        return redirect('/signin')
+def deletePost(request, id):
+    print("from deletepost", id)
 
 @login_required
 def user_logout(request):
