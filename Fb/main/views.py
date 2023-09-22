@@ -16,36 +16,40 @@ from django.contrib.auth.models import User
 
 # @login_required
 def home(request):
-    user_id = request.session.get('user_id')
-    # return HttpResponse(f"<h1>hamim ahmed</h1> {user_id}") # using an f-string to format the HTML content and include the user_id
-    try:
-        user_post = UserPost.objects.all().order_by('-datetime')    #user_id is the primary & foreignkeu for userpost
-        current_user = User.objects.get(id=user_id)
-        # print(user_post,current_user)
-    except UserProfile.DoesNotExist:
-        # Handle the case where the UserProfile does not exist
-        user_profile = None
-        current_user = None
-
-        # Create a context dictionary with the objects to pass to the template
-    context = {
-        'user_post': user_post,
-        'current_user': current_user,
-    }
-    # print(current_user.id)
-
     if request.user.is_authenticated:
+        # return HttpResponse(f"<h1>hamim ahmed</h1> {user_id}") # using an f-string to format the HTML content and include the user_id
+        try:
+            user_id = request.session.get('user_id')
+            user_post = UserPost.objects.all().order_by('-datetime')    #user_id is the primary & foreignkeu for userpost
+            current_user = User.objects.get(id=user_id)
+            # print(user_post,current_user)
+        except UserProfile.DoesNotExist:
+            # Handle the case where the UserProfile does not exist
+            user_post = None
+            current_user = None
+            messages.success(request,'invalid credentials')
+            return redirect('/signin')
+            # Create a context dictionary with the objects to pass to the template
+        context = {
+            'user_post': user_post,
+            'current_user': current_user,
+        }
+        # print(current_user.id)
+
+
         return render(request, 'home.html', context)
     else:
         # return HttpResponse("<h1>Authentication failed</h1>")
-        time.sleep(2)
+        # time.sleep(2)
         return redirect('/signin')
 @login_required()
 def profile(request):
     user_id = request.session.get('user_id')
+
     try:
         user_profile = UserProfile.objects.get(user_id=user_id)
         current_user = User.objects.get(id=user_id)
+        user_post = UserPost.objects.filter(user_id=user_id).order_by('-datetime')
     except UserProfile.DoesNotExist:
         # Handle the case where the UserProfile does not exist
         user_profile = None
@@ -55,10 +59,42 @@ def profile(request):
     context = {
         'user_profile': user_profile,
         'current_user': current_user,
+        'user_post': user_post,
+        'login_user': current_user,
     }
+    # print(user_post)
     # print(user_profile.nick_name)
     # print(current_user,user_id)
     return render(request, 'profile.html', context)
+@login_required()
+def requested_profile(request):
+    requested_user_id = request.GET.get('requested_user')
+    login_id = request.session.get('user_id')
+
+    try:
+        requested_user_profile = UserProfile.objects.get(user_id=requested_user_id)
+        requested_user = User.objects.get(id=requested_user_id)
+        login_user = User.objects.get(id=login_id)
+        user_post = UserPost.objects.filter(user_id=requested_user_id).order_by('-datetime')
+    except UserProfile.DoesNotExist:
+        # Handle the case where the UserProfile does not exist
+        user_profile = None
+        current_user = None
+
+        # Create a context dictionary with the objects to pass to the template
+    context = {
+        'user_profile': requested_user_profile,
+        'current_user': requested_user,
+        'user_post': user_post,
+        'login_user': login_user,
+    }
+    print(requested_user_id,login_id)
+    if requested_user_id == login_id:
+        return redirect('/profile')
+    else:
+        return render(request, 'profile.html', context)
+
+
 
 def updateinfo(request):
     user_id = request.session.get('user_id')
@@ -114,10 +150,15 @@ def cretePost(request):
 
 def updatePost(request):
     user_id = request.session.get('user_id')
+
+
     if request.method == 'POST':
         updated_post = request.POST['edited']
         post_id = request.POST['post_id']
         op = request.POST['operation']
+        view_name = request.POST['view_name']
+        referrer = request.META.get('HTTP_REFERER', None)
+        print(referrer)
     try:
         user_post = UserPost.objects.get(id=post_id)
         current_user = User.objects.get(id=user_id)
@@ -132,15 +173,15 @@ def updatePost(request):
             user_post.save()
         if op == "delete":
             user_post.delete()
-
-
         # print(updated_post)
-        print(op)
-
+        # print(op)
+        print(view_name)
+        if view_name == "profile":
+            return redirect('/profile')
         return redirect('/')
     else:
         # return HttpResponse("<h1>Authentication failed</h1>")
-        time.sleep(2)
+        # time.sleep(2)
         return redirect('/signin')
 def deletePost(request, id):
     print("from deletepost", id)
