@@ -73,14 +73,13 @@ div.profile{
     width: 30%;
     margin-right: 5px;
 }
-div.profile>div.logout{
-    display: flex;
-    flex-direction: row;
-    align-items: end;
-    justify-content: end;
-    height: inherit;
-    font-size: 17px;
-    margin-left: 10px;
+div.profile>div.link_dp{
+    margin-right: 5px;
+}
+div.profile>div.link_dp>a>img{
+    height:35px;
+    width: 35px;
+    border-radius: 100%;
 }
 
 /* ====================== main content ========================== */
@@ -172,6 +171,18 @@ div.posts>div.top{
     font-family:  sans-serif;
     font-size: 18px;
     font-weight: bold;
+}
+div.top>div.link_dp>a>img{
+    height:30px;
+    width: 30px;
+    border-radius: 100%;
+    margin-right: 5px;
+}
+div.top>div.link_dp>a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 div.datetime{
     display: flex;

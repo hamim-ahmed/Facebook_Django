@@ -22,6 +22,7 @@ def home(request):
             user_id = request.session.get('user_id')
             user_post = UserPost.objects.all().order_by('-datetime')    #user_id is the primary & foreignkeu for userpost
             current_user = User.objects.get(id=user_id)
+            user_profile = UserProfile.objects.get(user_id=user_id)
             # print(user_post,current_user)
         except UserProfile.DoesNotExist:
             # Handle the case where the UserProfile does not exist
@@ -33,6 +34,8 @@ def home(request):
         context = {
             'user_post': user_post,
             'current_user': current_user,
+            'user_profile': user_profile,
+            'login_user': current_user,
         }
         # print(current_user.id)
 
@@ -68,9 +71,9 @@ def profile(request):
     return render(request, 'profile.html', context)
 @login_required()
 def requested_profile(request):
-    requested_user_id = request.GET.get('requested_user')
+    requested_user_id = int(request.GET.get('requested_user'))       #terning the value into int as it returns as string.
     login_id = request.session.get('user_id')
-
+    # print(type(requested_user_id) ,type(login_id))
     try:
         requested_user_profile = UserProfile.objects.get(user_id=requested_user_id)
         requested_user = User.objects.get(id=requested_user_id)
@@ -88,10 +91,12 @@ def requested_profile(request):
         'user_post': user_post,
         'login_user': login_user,
     }
-    print(requested_user_id,login_id)
+    print(requested_user_id, login_id)
     if requested_user_id == login_id:
         return redirect('/profile')
     else:
+        # if requested_user_profile.profile_photo:
+        #     print("photo here:", requested_user_profile.profile_photo)
         return render(request, 'profile.html', context)
 
 
@@ -105,8 +110,11 @@ def updateinfo(request):
         profession = request.POST['profession']
         email = request.POST['email']
         address = request.POST['address']
-        print(f_name)
-        print(l_name)
+        profile_photo = request.FILES.get('profile_photo')
+        cover_photo = request.FILES.get('cover_photo')
+        # print(f_name)
+        # print(l_name)
+        # print(profile_photo)
     try:
         current_user = User.objects.get(id=user_id)
         user_profile = UserProfile.objects.get(user_id=user_id)   #user_id of user_profile is the onetoone relation with User model
@@ -117,17 +125,24 @@ def updateinfo(request):
         user_profile.profession = profession
         current_user.email = email
         user_profile.address = address
+        if profile_photo:
+            user_profile.profile_photo = profile_photo
+            # print(profile_photo)
+        if cover_photo:
+            user_profile.cover_photo = cover_photo
+
         user_profile.save()
         current_user.save()
 
         return redirect('main:profile')
+
     except UserProfile.DoesNotExist:
         # Handle the case where the UserProfile does not exist
         user_profile = None
         current_user = None
     return HttpResponse(f"<h1>info update failed</h1> {f_name}")
 
-def cretePost(request):
+def createPost(request):
     user_id = request.session.get('user_id')
     try:
         user_profile = UserProfile.objects.get(user_id=user_id)
@@ -142,6 +157,7 @@ def cretePost(request):
         current_user = User.objects.get(id=user_id)
         user_post = UserPost.objects.create(
             user=current_user,  # Associate the Current_user object with the post as foreignkey
+            user_profile=user_profile,
             post=post,
         )
         user_post.save()
@@ -157,8 +173,9 @@ def updatePost(request):
         post_id = request.POST['post_id']
         op = request.POST['operation']
         view_name = request.POST['view_name']
-        referrer = request.META.get('HTTP_REFERER', None)
-        print(referrer)
+        referrer = request.META.get('HTTP_REFERER', None)    #from where the post req is coming
+        # print(referrer)
+        print(op)
     try:
         user_post = UserPost.objects.get(id=post_id)
         current_user = User.objects.get(id=user_id)

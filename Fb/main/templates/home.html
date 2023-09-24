@@ -41,20 +41,25 @@ Home
         </div>
 
         <div class="profile">
-
-          <div>
-            <a href="{% url 'main:profile' %}"> <i class="big user circle icon"></i></a>
-            <div><h5>{{ current_user.first_name }}</h5></div>
-          </div>
-          <div class="logout">
-            <a href="{% url 'main:logout' %}">Logout</a>
-          </div>
+              <div class="link_dp">
+                <a href="{% url 'main:profile' %}">
+                  {% if user_profile.profile_photo %}
+                    <img src={{user_profile.profile_photo.url}} alt="" >
+                  {% else %}
+                    <i class='big user circle icon'></i>
+                  {% endif %}
+                </a>
+                <div><h5>{{ login_user.first_name }}</h5></div>
+              </div>
+              <div class="logout">
+                <h5><a href="{% url 'main:logout' %}">Logout</a></h5>
+              </div>
 
         </div>
 
       </div>
 
-
+        <!-- =========================topbar ends here ================================ -->
       <div class="content">
         <div class="left_nav">
 
@@ -91,9 +96,14 @@ Home
 
                   <div class="top">
 
-                    <div>
+                    <div class="link_dp">
                         <a href="{% url 'main:requested_profile' %}?requested_user={{ posts.user.id }}" >
-                            <i class="large user circle icon"> </i>
+                           {% if posts.user_profile.profile_photo %}
+                             <img src={{posts.user_profile.profile_photo.url}} alt="" >
+                           {% else %}
+                             <i class='large user circle icon'></i>
+                           {% endif %}
+                            <!-- <i class="large user circle icon"> </i> -->
                             {{ posts.user.first_name }} {{ posts.user.last_name }}
                         </a>
                     </div>

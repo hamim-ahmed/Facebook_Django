@@ -22,6 +22,10 @@ div.topbar{
     height: 65px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 10px black;
+    margin-bottom: 10px;
+    position: sticky;
+    top: 0px;
+    z-index: 5;
 
 }
 .topbar>.logo{
@@ -64,21 +68,28 @@ div.nav_icon>div{
 div.profile{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: end;
     justify-content: right;
     width: 30%;
     margin-right: 5px;
 }
-
+div.profile>div.link_dp{
+    margin-right: 5px;
+}
+div.profile>div.link_dp>a>img{
+    height:35px;
+    width: 35px;
+    border-radius: 100%;
+}
 /* ================ main body============== */
 div.content{
     display: flex;
     flex-direction: column;
     width: 100%;
     /* background-color: white; */
-    margin-top: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px rgba(80, 80, 80,0.5);
+    /* margin-top: 10px; */
+    /* border-radius: 10px; */
+    /* box-shadow: 0px 0px 5px rgba(80, 80, 80,0.5); */
 }
 div.main_content{
     display: flex;
@@ -91,29 +102,55 @@ div.main_content{
 div.main_content>div.personal_info{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: initial;
+    justify-content: end;
     background-color: white;
     width: 60%;
-    height: 400px;
+    height: 450px;
     margin-bottom: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    
+    padding: 0px;
     border-radius: 10px;
+    /* background-image: url('../../media/cover_photos/cover.jpeg'); */
+    /* background-size: cover; */
+    /* background-size: 100% 100%; */
+    /* z-index: 1; */
+}
+div.cover_photo{
+    display: flex;
+    width: 60%;
+    z-index: 0;
+    position: absolute;
+}
+div.personal_info>div.cover_photo>img{
+    height: 450px ;
+    width: 100%;
+    border-radius: 10px;
+    
 }
 div.dp{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-items: center;
+    z-index: 1;
+}
+div.dp>img{
+    height: 120px;
+    width: 120px;
+    border-radius: 100%;
 }
 div.info{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 1;
 }
+
 
 .popup-form {
     display: none;
@@ -187,6 +224,18 @@ div.posts>div.top{
     font-family:  sans-serif;
     font-size: 18px;
     font-weight: bold;
+}
+div.top>div.link_dp{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+div.top>div.link_dp>img{
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    margin-right: 5px;
 }
 div.datetime{
     display: flex;

@@ -34,8 +34,19 @@ Home
             </div>
 
             <div class="profile">
-              <div><a href="{% url 'main:profile' %}"> <i class="big user circle icon"></i></a></div>
-              <div><a href="{% url 'main:logout' %}">logout</a></div>
+              <div class="link_dp">
+                <a href="{% url 'main:profile' %}">
+                  {% if user_profile.profile_photo %}
+                    <img src={{user_profile.profile_photo.url}} alt="" >
+                  {% else %}
+                    <i class='big user circle icon'></i>
+                  {% endif %}
+                </a>
+                <div><h5>{{ login_user.first_name }}</h5></div>
+              </div>
+              <div class="logout">
+                <h5><a href="{% url 'main:logout' %}">Logout</a></h5>
+              </div>
 
             </div>
 
@@ -48,8 +59,19 @@ Home
 
 
               <div class="personal_info">
+                  {% if user_profile.cover_photo %}
+                  <div class="cover_photo">
+                    <img src={{user_profile.cover_photo.url}} alt="">
+                  </div>
+                  {% endif %}
+                  
                   <div class="dp">
-                    <i class="massive user circle icon"></i>
+                    {% if user_profile.profile_photo %}
+                      <img src={{user_profile.profile_photo.url}} alt="" >
+                    {% else %}
+                      <i class='massive user circle icon'></i>
+                    {% endif %}
+                    
                   </div>
                   <div class="info">
         
@@ -61,21 +83,23 @@ Home
                     {% else %}
                     <p>No user found</p>
                     {% endif %}
-        
+                    
+                    {% if current_user == login_user %}         <!-- if current user is logged in user -->
+                    <div v-if="flag" class="update_info">
+                      <br>
+                      <a class="" v-on:click="showForm">Edit Info </a>
+                    </div>
+                    {% endif %}
+
                   </div>
-                  {% if current_user == login_user %}         <!-- if current user is logged in user -->
-                  <div v-if="flag" class="update_info">
-                    <br>
-                    <a class="" v-on:click="showForm">Edit Info </a>
-                  </div>
-                  {% endif %}
+                  
               </div>
               
               {% if current_user == login_user %}
               <div id="popup" class="popup-form">
                   <div class="popup-content">
                     <h2>Edit Info</h2>
-                    <form class="update_form" action="updateinfo/" method="post">
+                    <form class="update_form" action="updateinfo/" method="post" enctype="multipart/form-data">
 
                       <label>First_Name</label>
                       <input type="text" name="f_name" value="{{ current_user.first_name }}"  required>
@@ -89,6 +113,10 @@ Home
                       <input type="text" name="email" value="{{ current_user.email }}" required>
                       <label>Address</label>
                       <input type="text" name="address" value="{{user_profile.address}}">
+                      <label>Update Profile Photo</label>
+                      <input type="file" name="profile_photo">
+                      <label>Update Cover Photo</label>
+                      <input type="file" name="cover_photo">
 
                       <input class="ui inverted red button" type="submit" value="Update">
                       <button id="concel_form" v-on:click="hideForm" class="ui inverted green button" type="button">Cancel</button>
@@ -107,7 +135,15 @@ Home
 
                     <div class="top">
 
-                      <div><i class="large user circle icon"> </i> {{ posts.user.first_name }} {{ posts.user.last_name }}</div>
+                      <div class="link_dp">
+                        {% if user_profile.profile_photo %}
+                          <img src={{user_profile.profile_photo.url}} alt="" >
+                        {% else %}
+                          <i class='large user circle icon'></i>
+                        {% endif %}
+<!--                        <i class="large user circle icon"> </i>-->
+                        {{ posts.user.first_name }} {{ posts.user.last_name }}
+                      </div>
 
                       <div class="datetime">
                         <div>{{ posts.datetime }}</div>
@@ -139,7 +175,7 @@ Home
                             <input id="user_id" type="hidden" name="post_id">
                             <input id="current_page" type="hidden" name="view_name">
                             <input v-on:click="setvaluePost('update')" id="update_post" name="operation" class="ui inverted green button" type="submit" value="Update">
-                            <input v-on:click="setvaluePOst('delete')" id="delete_post" name="operation" class="ui inverted red button" type="submit" value="Delete Post">
+                            <input v-on:click="setvaluePost('delete')" id="delete_post" name="operation" class="ui inverted red button" type="submit" value="Delete Post">
 
 
                           </form>
