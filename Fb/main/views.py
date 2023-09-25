@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 import time
 from django.contrib import messages
 
-from main.models import UserProfile, UserPost
+from main.models import UserProfile, UserPost, PostImage
 from django.contrib.auth.models import User
 
 
@@ -23,6 +23,7 @@ def home(request):
             user_post = UserPost.objects.all().order_by('-datetime')    #user_id is the primary & foreignkeu for userpost
             current_user = User.objects.get(id=user_id)
             user_profile = UserProfile.objects.get(user_id=user_id)
+            post_images = PostImage.objects.all().order_by('-id')
             # print(user_post,current_user)
         except UserProfile.DoesNotExist:
             # Handle the case where the UserProfile does not exist
@@ -33,11 +34,14 @@ def home(request):
             # Create a context dictionary with the objects to pass to the template
         context = {
             'user_post': user_post,
+            'post_images': post_images,
             'current_user': current_user,
             'user_profile': user_profile,
             'login_user': current_user,
         }
-        # print(current_user.id)
+        for images in post_images:
+            print(images)
+            print(images.images)
 
 
         return render(request, 'home.html', context)
@@ -152,8 +156,10 @@ def createPost(request):
         user_profile = None
         current_user = None
     if request.method == 'POST':
-        post = request.POST['post']
-        # print(post)
+        post = str(request.POST['post'])
+        images = request.FILES.getlist('images')
+        print(images)
+
         current_user = User.objects.get(id=user_id)
         user_post = UserPost.objects.create(
             user=current_user,  # Associate the Current_user object with the post as foreignkey
@@ -161,6 +167,12 @@ def createPost(request):
             post=post,
         )
         user_post.save()
+        if images:
+            # print("from images")
+            for image in images:
+                PostImage.objects.create(post=user_post, images=image)
+
+
         messages.success(request,'Post Created Successfully')
         return redirect('/')
 
@@ -169,7 +181,7 @@ def updatePost(request):
 
 
     if request.method == 'POST':
-        updated_post = request.POST['edited']
+        updated_post = str(request.POST['edited'])
         post_id = request.POST['post_id']
         op = request.POST['operation']
         view_name = request.POST['view_name']

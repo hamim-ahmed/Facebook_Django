@@ -6,3 +6,6 @@ admin.site.register(UserProfile)
 
 from .models import UserPost
 admin.site.register(UserPost)
+
+from .models import PostImage
+admin.site.register(PostImage)

@@ -52,7 +52,7 @@ Home
 
           </div>
 
-
+          <!--    ====================main body here===================        -->
           <div class="content">
 
             <div class="main_content"  id="main_content">
@@ -123,6 +123,28 @@ Home
                     </form>
                   </div>
               </div>
+              {% endif %}
+
+              {% if current_user == login_user %}
+              <form class="post_form" action="createPost" method="post">
+    <!--          {% csrf_token %}-->
+                <div class="inp">
+                  <textarea class="user_post" type="text" name="post" placeholder="What's on your mind?" required></textarea>
+                </div>
+                <div class="inp">
+                  <button class="ui inverted small blue button"><input class="sb" type="submit" value="Post"></button>
+
+                </div>
+                {% if messages %}
+                <div class="alert alert-success">
+                    <ul>
+                        {% for message in messages %}
+                          <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+              </form>
               {% endif %}
 
             

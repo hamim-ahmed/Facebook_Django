@@ -27,3 +27,10 @@ class UserPost(models.Model):
 
     def __str__(self):    #this function display the objects as string names in the admin panel.
         return f"{self.id}, {self.user}, {self.user_profile}, {self.post}, {self.datetime}"   # f for displays the actual values
+
+class PostImage(models.Model):
+    post = models.ForeignKey(UserPost, on_delete=models.CASCADE, related_name='images')    #related_name of 'images', which means that you can access related PostImage objects from a UserPost instance using the images
+    images = models.ImageField(upload_to='post_photos/', blank=True, null=True)
+
+    def __str__(self):    #this function display the objects as string names in the admin panel.
+        return f"{self.id}, {self.post}, {self.images}"   # f for displays the actual values

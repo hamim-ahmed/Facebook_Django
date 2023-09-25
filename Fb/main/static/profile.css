@@ -2,8 +2,9 @@ div.container{
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-height: 100vh;
     /* height: 100%; */
-    height: fit-content;
+    /* height: fit-content; */
     background-color: rgb(223, 223, 223);
 }
 div.main{
@@ -192,11 +193,41 @@ div.info{
     
   }
   
-  /* .popup-form button:hover {
-    background-color: #ff0000;
-  } */
+div.main_content>form.post_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    box-shadow: 0px 0px 5px 0px black;
+    background-color: white;
+    border-radius:10px;
+    padding: 10px;
+    margin-bottom: 10px;
 
-  div.content_post{
+}
+div.inp{
+    width: 100%;
+    text-align: center;
+    border: 10px;
+
+}
+div.inp>.sb{
+    background-color: white;
+}
+textarea{
+    height: fit-content;
+    width: 90%;
+    max-width: 100%;
+    background-color: rgb(226, 226, 226);
+    border-radius: 15px;
+    margin-bottom: 10px;
+    border: 0px;
+    font-size: 20px;
+}
+
+
+ div.content_post{
     display: flex;
     flex-direction: column;
     width: 40%;
