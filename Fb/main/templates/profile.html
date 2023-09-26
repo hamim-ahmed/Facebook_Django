@@ -53,12 +53,13 @@ Home
           </div>
 
           <!--    ====================main body here===================        -->
+
           <div class="content">
 
             <div class="main_content"  id="main_content">
 
 
-              <div class="personal_info">
+              <div class="personal_info" >
                   {% if user_profile.cover_photo %}
                   <div class="cover_photo">
                     <img src={{user_profile.cover_photo.url}} alt="">
@@ -126,15 +127,67 @@ Home
               {% endif %}
 
               {% if current_user == login_user %}
-              <form class="post_form" action="createPost" method="post">
-    <!--          {% csrf_token %}-->
+              <!-- <form class="post_form" action="createPost" method="post">
+    
                 <div class="inp">
                   <textarea class="user_post" type="text" name="post" placeholder="What's on your mind?" required></textarea>
                 </div>
                 <div class="inp">
                   <button class="ui inverted small blue button"><input class="sb" type="submit" value="Post"></button>
 
+                </div> -->
+
+                <div class="createpost">
+
+                  <a href="{% url 'main:requested_profile' %}?requested_user={{ posts.user.id }}" >
+                    {% if user_profile.profile_photo %}
+                      <img src={{user_profile.profile_photo.url}} alt="" >
+                    {% else %}
+                      <i class='large user circle icon'></i>
+                    {% endif %}
+                     <!-- <i class="large user circle icon"> </i> -->
+                 </a>
+                  <input v-on:click="showForm_createPost()" class="user_post" type="text" name="post" placeholder="What's on your mind?" required>
+                  {% if messages %}
+                  <div class="alert alert-success">
+                      <ul>
+                          {% for message in messages %}
+                            <li>{{ message }}</li>
+                          {% endfor %}
+                      </ul>
+                  </div>
+                  {% endif %}
                 </div>
+    
+                <div id="popup_createpost" class="popup-createform">
+                  <div class="popup-content">
+    
+                    <div class="cancel_popup">
+                      <div><h2>Write Post</h2></div>
+                      <div><i  class=" x icon"  v-on:click="hideForm_createPost()"></i></div>
+                    </div>
+                    
+                    <form  class="createpost_form" action="createPost/" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                        <div class="inp">
+                          <textarea class="user_post" type="text" name="post" placeholder="What's on your mind?" required></textarea>
+                        </div>
+                        <div class="inp">
+                            <label><b>Add Photos</b></label>
+                          <input type="file" name="images" accept="image/*" multiple>
+                          <!-- Use 'multiple' attribute to allow multiple file selection -->
+                      </div>
+                        <div class="inp">
+                          <button type="submit" class="ui inverted small green button">Create Post</button>
+                          
+                        </div>
+    
+                      </form>
+                  </div>
+                </div>
+
+
+
                 {% if messages %}
                 <div class="alert alert-success">
                     <ul>
@@ -147,7 +200,8 @@ Home
               </form>
               {% endif %}
 
-            
+              <!-- =============== Posts starts here===================== -->
+
               <div class="content_post" id="post_content">
 
                 {% if user_post %}
@@ -179,7 +233,19 @@ Home
                     </div>
 
                     <div class="main_post">
-                      {{posts.post|linebreaks}}        <!-- # to exclude the <br> tag as string -->
+                              <!-- # to exclude the <br> tag as string -->
+                      <div>{{posts.post|linebreaks}}</div>
+                      <div class="post_images">
+                          {% for images in post_images %}
+                              {% if images.post.id == posts.id %}
+
+                                <!-- <div class="images"> -->
+                                  <img src="{{ images.images.url }}" alt="Post Image">
+                                <!-- </div>   -->
+
+                              {% endif %}
+                          {% endfor %}
+                        </div>
 
                         <!-- post edit form for the user -->
                       <div id="popupPost" class="popup-form">
@@ -237,10 +303,35 @@ Home
   const app = Vue.createApp({
    data() {
     return {
-      flag: true
+      flag: true,
+      device_max_width:820,
     }
    },
+
+   mounted() {
+    //Add an event listener to run the checkScreenWidth method when the window is resized
+    window.addEventListener('resize', this.changeCssClass);
+
+   // Initial check when the component is mounted
+    this.changeCssClass();
+  },
+  beforeDestroy() {
+    // Remove the event listener to prevent memory leaks when the component is destroyed
+    window.removeEventListener('resize', this.changeCssClass);
+  },
+
    methods: {
+    showForm_createPost(){
+      console.log("from postcreate showForm");
+      const x = document.getElementById("popup_createpost");
+      
+      x.style.display="block";
+    },
+    hideForm_createPost(){
+      const x = document.getElementById("popup_createpost");
+      x.style.display = "none";
+    },
+
 
     // ====================== personal info edit logic here ================================
     showForm(){
@@ -281,7 +372,33 @@ Home
       const dlte  = document.getElementById("delete_post");
       update.value=value;
       dlte.value=value;
-    }
+    },
+
+    //========================== device screen resize logic here===============
+
+    changeCssClass() {
+      const screen_width=window.innerWidth;
+      console.log(screen_width);
+      var class_home = document.getElementById("device_change");
+      // var class_navbar = document.getElementById("navbar");
+      
+      
+      if(screen_width<=this.device_max_width){        //when device width is smaller   //onlt active topbar classes
+        console.log("inside small",screen_width); 
+        class_home.style.width="100%";
+        // class_main.className = "top_main";
+        // class_navbar.className = "top_nav-bar";
+
+         
+      }
+      if(screen_width>this.device_max_width){ //when device width is larger  //only active sidevar classes
+        console.log("inside large:",screen_width);
+        
+        class_home.style.width="40%";
+        // class_main.className = "main";
+      }
+      
+    },
 
    }
 

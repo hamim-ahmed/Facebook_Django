@@ -222,6 +222,7 @@ div.content_post>div.posts{
     justify-content: top;
     width: 100%;
     min-height: 200px;
+    max-height: fit-content;
     background-color: white;
     margin-bottom: 10px;
     border-radius: 10px;
@@ -270,19 +271,22 @@ div.main_post>div.post_images{
     display: flex;
     flex-direction: row;
     align-items: center;
-    flex-wrap: wrap;
-}
-div.main_post>div.post_images>img{
-    display: flex;
-    align-items: center;
     justify-content: center;
-    min-width: 150px;
+    flex-wrap: wrap;
+    max-height: auto;
     max-width: 100%;
+}
+div.post_images>img{
+    display: flex;
+    max-height: 400px;
+    min-width: 100px;
+    max-width: auto;
+    height: auto;
     width: 50%;
-    height: 300px;
-    /* margin: 10px 10px 10px 0px; */
+    /* object-fit: cover; */
     border-radius: 10px;
 }
+
 .popup-form {
     display: none;
     position: fixed;

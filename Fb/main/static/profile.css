@@ -192,13 +192,73 @@ div.info{
     margin-bottom: 50px;
     
   }
-  
-div.main_content>form.post_form{
+
+
+
+
+div.createpost{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    text-align: center;
+    border: 10px;
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0,0.3);
+    
+}
+div.createpost>a>img{
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    margin-right: 10px;
+
+}
+
+div.createpost>input{
+    height: 50px;
+    width: 90%;
+    max-width: 100%;
+    background-color: rgb(226, 226, 226);
+    border-radius: 15px;
+    border: 0px;
+    font-size: 20px;
+    padding-left:5px;
+}
+
+div.main_content>div.popup-createform {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+  div.popup-createform>div.popup-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    height: 400px;
+  }
+  div.popup-content>div.cancel_popup{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  div.popup-content>form.createpost_form{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 40%;
+    width: 100%;
     box-shadow: 0px 0px 5px 0px black;
     background-color: white;
     border-radius:10px;
@@ -207,27 +267,31 @@ div.main_content>form.post_form{
 
 }
 div.inp{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    text-align: center;
-    border: 10px;
-
-}
-div.inp>.sb{
-    background-color: white;
-}
-textarea{
-    height: fit-content;
-    width: 90%;
-    max-width: 100%;
-    background-color: rgb(226, 226, 226);
-    border-radius: 15px;
     margin-bottom: 10px;
-    border: 0px;
-    font-size: 20px;
 }
-
-
- div.content_post{
+form.createpost_form>div.inp>textarea{
+    max-width: 100%;
+    width: 100%;
+    min-height: 200px;
+    max-height: 200px;
+    border-radius: 10px;
+    border: 0px;
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
+form.createpost_form>div.inp>button{
+    width: 100%;
+    font-size: 25px;
+}
+/* =====================Posts Stars here */
+div.content_post{
     display: flex;
     flex-direction: column;
     width: 40%;
@@ -281,8 +345,29 @@ div.posts>div.main_post{
     flex-direction: column;
     padding: 10px 10px 10px;
     font-size: 17px;
-
+    width: 100%;
 }
+div.main_post>div.post_images{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-height: auto;
+    max-width: 100%;
+}
+div.post_images>img{
+    display: flex;
+    max-height: 400px;
+    min-width: 100px;
+    max-width: auto;
+    height: auto;
+    width: 48%;
+    /* object-fit: cover; */
+    border-radius: 10px;
+    margin: 5px;
+}
+
 .popup-form {
     display: none;
     position: fixed;

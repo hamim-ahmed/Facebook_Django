@@ -153,9 +153,11 @@ Home
 
                     <div class="post_images">
                       {% for images in post_images %}
-                          {% if images.post.id == posts.id %}        <!-- if images foreignkey id == posts id-->
-
-                            <img src="{{ images.images.url }}" alt="Post Image">
+                          {% if images.post.id == posts.id %}        
+                            
+                            <!-- <div class="images"> -->
+                              <img src="{{ images.images.url }}" alt="Post Image">
+                            <!-- </div>   -->
 
                           {% endif %}
                       {% endfor %}

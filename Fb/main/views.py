@@ -57,6 +57,7 @@ def profile(request):
         user_profile = UserProfile.objects.get(user_id=user_id)
         current_user = User.objects.get(id=user_id)
         user_post = UserPost.objects.filter(user_id=user_id).order_by('-datetime')
+        post_images = PostImage.objects.all().order_by('-id')
     except UserProfile.DoesNotExist:
         # Handle the case where the UserProfile does not exist
         user_profile = None
@@ -67,6 +68,7 @@ def profile(request):
         'user_profile': user_profile,
         'current_user': current_user,
         'user_post': user_post,
+        'post_images': post_images,
         'login_user': current_user,
     }
     # print(user_post)

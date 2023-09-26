@@ -14,7 +14,7 @@ urlpatterns = [
     path('profile/updateinfo/', views.updateinfo, name='updateinfo'),
     path('profile/updatepost/', views.updatePost, name ='updatepost'),
     path('createPost/', views.createPost, name='createPost'),  #create post from home
-    path('profile/createPost', views.createPost, name='createPost'),  #create post from profile
+    path('profile/createPost/', views.createPost, name='createPost'),  #create post from profile
     path('updatepost/', views.updatePost, name='updatepost'),
     path('deletepost//<str:id>/', views.deletePost, name='deletepost')
 
