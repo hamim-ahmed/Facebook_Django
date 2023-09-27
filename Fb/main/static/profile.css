@@ -23,11 +23,9 @@ div.topbar{
     height: 65px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 10px black;
-    margin-bottom: 10px;
     position: sticky;
     top: 0px;
-    z-index: 5;
-
+    
 }
 .topbar>.logo{
     display: flex;
@@ -36,6 +34,9 @@ div.topbar{
     justify-content: left;
     width: 30%;
     margin-left: 5px;
+}
+div.logo>div.fb_icon>a>i.big{
+    border-radius: 100%;
 }
 div.fb>i{
     color: blue;
@@ -56,6 +57,9 @@ div.search>input{
     width: 15vw;
     /* text-align: center; */
 }
+input:focus{
+    border: 0px;
+}
 div.nav_icon{
     display: flex;
     flex-direction: row;
@@ -68,29 +72,60 @@ div.nav_icon>div{
 }
 div.profile{
     display: flex;
-    flex-direction: row;
-    align-items: end;
+    align-items: center;
     justify-content: right;
     width: 30%;
-    margin-right: 5px;
 }
-div.profile>div.link_dp{
-    margin-right: 5px;
+
+div.dropdown_profile {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
-div.profile>div.link_dp>a>img{
-    height:35px;
+.dropdown_profile>img{
+    height: 35px;
     width: 35px;
     border-radius: 100%;
 }
+/* Style the dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+}
+
+/* Style the links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of links on hover */
+.dropdown-content a:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+/* Show the dropdown content when the button is hovered over */
+.dropdown_profile:hover .dropdown-content {
+    display: block;
+}
+
+
+
 /* ================ main body============== */
 div.content{
     display: flex;
     flex-direction: column;
     width: 100%;
-    /* background-color: white; */
-    /* margin-top: 10px; */
-    /* border-radius: 10px; */
-    /* box-shadow: 0px 0px 5px rgba(80, 80, 80,0.5); */
+
 }
 div.main_content{
     display: flex;

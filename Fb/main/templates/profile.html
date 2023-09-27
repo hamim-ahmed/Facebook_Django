@@ -15,42 +15,45 @@ Home
 
       
       <div class="main">
-          <div class="topbar">
+        <div class="topbar">
 
-            <div class="logo">
-              <div><a href="{% url 'main:home' %}"> <i class="big facebook icon"></i></a></div>
-              <div class="search">
-                <i class="search icon"></i>
-                <input  class="srch" type="text" placeholder="Search Facebook">
-              </div>
-            </div>
-
-            <div class="nav_icon">
-              <div><a href="{% url 'main:home' %}"> <i class="big home icon"></i></a></div>
-              <div><i class=" big youtube square icon"></i></div>
-              <div> <i class="big shopping cart icon"></i></div>
-              <div> <i class="big users icon"></i></div>
-
-            </div>
-
-            <div class="profile">
-              <div class="link_dp">
-                <a href="{% url 'main:profile' %}">
-                  {% if user_profile.profile_photo %}
-                    <img src={{user_profile.profile_photo.url}} alt="" >
-                  {% else %}
-                    <i class='big user circle icon'></i>
-                  {% endif %}
-                </a>
-                <div><h5>{{ login_user.first_name }}</h5></div>
-              </div>
-              <div class="logout">
-                <h5><a href="{% url 'main:logout' %}">Logout</a></h5>
-              </div>
-
-            </div>
-
+          <div class="logo">
+  <!--          <div class="fb"><i class="big facebook icon"></i></div>-->
+            <div class="fb_icon"><a href="{% url 'main:home' %}"> <i class="big facebook icon"></i></a></div>
+            <div class="search">
+              <i class="search icon"></i>
+              <input  class="srch" type="text" placeholder="Search Facebook">
+            </div>  
+  
           </div>
+  
+          <div class="nav_icon">
+  
+            <!-- <div><i class=" big home icon"></i></div> -->
+            <div><a href="{% url 'main:home' %}"> <i class="big home icon"></i></a></div>
+            <div><i class=" big youtube square icon"></i></div>
+            <!-- <div> <i class="big shopping cart icon"></i></div> -->
+            <div>
+              <div><i class="big users icon"></i></div>
+            </div>
+            <div> <i class="big notification bell icon"></i></div>
+            
+          </div>
+  
+          <div class="profile">
+  
+            <div class="dropdown_profile">
+              <img src={{user_profile.profile_photo.url}} alt="" >
+               <div class="dropdown-content">
+                   <a href="{% url 'main:profile' %}">Profile</a>
+                   <a href="{% url 'main:logout' %}">Logout</a>
+               </div>
+           </div>
+           
+          </div>
+  
+  
+        </div>
 
           <!--    ====================main body here===================        -->
 

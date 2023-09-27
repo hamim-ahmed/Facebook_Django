@@ -1,0 +1,12 @@
+asgiref==3.7.2
+config==0.5.1
+Django==4.2.4
+django-extensions==3.2.3
+django-phonenumber-field==7.1.0
+Pillow==10.0.1
+python-dotenv==1.0.0
+Python-Rest-Framework==0.3.14
+six==1.16.0
+sqlparse==0.4.4
+typing_extensions==4.7.1
+tzdata==2023.3
