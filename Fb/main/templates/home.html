@@ -43,11 +43,14 @@ Home
         <div class="profile">
 
           <div class="dropdown_profile">
+            
             <img src={{user_profile.profile_photo.url}} alt="" >
+            <div><b>{{user_profile.user.first_name}}</b></div>
              <div class="dropdown-content">
                  <a href="{% url 'main:profile' %}">Profile</a>
                  <a href="{% url 'main:logout' %}">Logout</a>
              </div>
+
          </div>
 
         </div>

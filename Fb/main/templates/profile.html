@@ -44,6 +44,7 @@ Home
   
             <div class="dropdown_profile">
               <img src={{user_profile.profile_photo.url}} alt="" >
+              <div><b>{{user_profile.user.first_name}}</b></div>
                <div class="dropdown-content">
                    <a href="{% url 'main:profile' %}">Profile</a>
                    <a href="{% url 'main:logout' %}">Logout</a>
@@ -62,8 +63,40 @@ Home
             <div class="main_content"  id="main_content">
 
 
-              <div class="personal_info" >
-                  {% if user_profile.cover_photo %}
+              <div class="personal_info">
+                {% if user_profile.cover_photo %}
+                <div class="cover">
+                  <img id="cover_photo" src={{user_profile.cover_photo.url}} alt="">
+                  <div class="dp">
+                    <div>
+                      {% if user_profile.profile_photo %}
+                      <img src={{user_profile.profile_photo.url}} alt="" >
+                      {% else %}
+                        <i class='massive user circle icon'></i>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="info">
+                    {% if current_user %}
+                    <div><h1>{{ current_user.first_name }} {{current_user.last_name}} ({{user_profile.nick_name}})</h1></div>
+                    <div><h3>{{ user_profile.profession }}</h3></div>
+                    <div><h4>{{current_user.email}} </h4></div>
+                    <div><h4>{{user_profile.address}}</h4></div>
+                    {% else %}
+                    <p>No user found</p>
+                    {% endif %}
+                    
+                    {% if current_user == login_user %}         
+                    <div v-if="flag" class="update_info">
+                      <br>
+                      <a class="" v-on:click="showForm">Edit Info </a>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+                {% endif %}
+                 
+                  <!-- {% if user_profile.cover_photo %}
                   <div class="cover_photo">
                     <img src={{user_profile.cover_photo.url}} alt="">
                   </div>
@@ -88,14 +121,14 @@ Home
                     <p>No user found</p>
                     {% endif %}
                     
-                    {% if current_user == login_user %}         <!-- if current user is logged in user -->
+                    {% if current_user == login_user %}         
                     <div v-if="flag" class="update_info">
                       <br>
                       <a class="" v-on:click="showForm">Edit Info </a>
                     </div>
                     {% endif %}
 
-                  </div>
+                  </div> -->
                   
               </div>
               
@@ -140,7 +173,7 @@ Home
 
                 </div> -->
 
-                <div class="createpost">
+                <div id="create_post" class="createpost">
 
                   <a href="{% url 'main:requested_profile' %}?requested_user={{ posts.user.id }}" >
                     {% if user_profile.profile_photo %}
@@ -382,22 +415,28 @@ Home
     changeCssClass() {
       const screen_width=window.innerWidth;
       console.log(screen_width);
-      var class_home = document.getElementById("device_change");
+      var cover_image = document.getElementById("cover_photo");
+      var create_post = document.getElementById("create_post");
+      var post_content = document.getElementById("post_content");
       // var class_navbar = document.getElementById("navbar");
+
       
       
-      if(screen_width<=this.device_max_width){        //when device width is smaller   //onlt active topbar classes
+      if(screen_width<=this.device_max_width){        //when device width is smaller   
         console.log("inside small",screen_width); 
-        class_home.style.width="100%";
+        // class_home.style.width="100%";
         // class_main.className = "top_main";
         // class_navbar.className = "top_nav-bar";
+        cover_image.style.width="100%";
+        create_post.style.width="100%";
+        post_content.style.width="100%";
 
          
       }
       if(screen_width>this.device_max_width){ //when device width is larger  //only active sidevar classes
         console.log("inside large:",screen_width);
         
-        class_home.style.width="40%";
+        // class_home.style.width="40%";
         // class_main.className = "main";
       }
       

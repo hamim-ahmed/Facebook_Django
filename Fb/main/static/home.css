@@ -79,7 +79,7 @@ div.dropdown_profile {
     display: inline-block;
     /* width: 30%; */
     margin-right: 10px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 .dropdown_profile>img{
     height: 35px;
@@ -193,6 +193,7 @@ div.home>div.popup-createform {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
+    padding: 10px;
   }
   div.popup-createform>div.popup-content{
     display: flex;
@@ -238,6 +239,7 @@ form.createpost_form>div.inp>textarea{
     border: 0px;
     background-color: rgb(240, 240, 240);
     padding: 10px;
+    margin-bottom: 10px;
     font-size: 15px;
     font-weight: bold;
 }
