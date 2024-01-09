@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)    #one to one rel with User....will be deleted if user is deleted.
     nick_name = models.CharField(max_length=30, blank=True)
     phone = models.CharField(max_length=11, blank=True)
     profession = models.CharField(max_length=255, blank=True)

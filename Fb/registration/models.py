@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class AppUsers(models.Model):
+class AppUsers(models.Model):                #currentyly not using in the project....default django User model is used with custom django form.
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone = models.IntegerField(null=True)
