@@ -135,62 +135,6 @@ div.main_content{
     justify-items: center;
     width: 100%;
 }
-/* div.main_content>div.personal_info{
-    display: flex;
-    flex-direction: column;
-    align-items: initial;
-    justify-content: end;
-    background-color: rgb(10, 10, 10);
-    width: 100%;
-    height: fit-content;
-    margin-bottom: 20px;
-    
-    padding: 0px;
-    border-radius: 10px;
-   
-}
-div.cover_photo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 70%;
-    height: fit-content;
-    z-index: 0;
-    position: absolute;
-}
-div.personal_info>div.cover_photo>img{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: auto ;
-    width: 100%;
-    border-radius: 10px;
-    
-} */
-
-/* div.dp{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-    z-index: 1;
-}
-div.dp>img{
-    height: 120px;
-    width: 120px;
-    border-radius: 100%;
-}
-div.info{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    padding: 5px;
-    z-index: 1;
-} */
-
 
 
 
@@ -199,8 +143,8 @@ div.main_content>div.personal_info{
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 500px;
-    height: fit fit-content;
+    min-height: 70vh;
+    height: fit-content;
     background-color: rgba(83, 83, 83, 0.3);
     margin-bottom: 20px;
 }
@@ -209,17 +153,28 @@ div.personal_info>div.cover{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    width: 70%;
+    height: inherit;
 }
-div.cover>img{
-    position: absolute;
-    height: 500px;
+div.cover>div.cover_image{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height:fit-content;
     width: inherit;
+    position: absolute;
+
+}
+div.cover>div.cover_image>img{
+    position: absolute;
+    height:70vh ;
+    width: 100%;
     border-radius: 10px;
 }
 div.cover>div.dp{
     display: flex;
     flex-direction: column;
+    justify-content: end;
     width: fit-content;
     height: fit-content;
     z-index: 2;
@@ -270,7 +225,12 @@ div.cover>div.info{
   
   .popup-form input {
     width: 100%;
+    height: 30px;
     margin-bottom: 10px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0px;
+    background-color: rgba(51, 153, 144, 0.411);
   }
   
   .popup-form button {
@@ -449,14 +409,14 @@ div.main_post>div.post_images{
 }
 div.post_images>img{
     display: flex;
-    max-height: 400px;
+    /* max-height: 400px; */
     min-width: 100px;
     max-width: auto;
     height: auto;
     width: 48%;
     /* object-fit: cover; */
     border-radius: 10px;
-    margin: 5px;
+    margin: 3px;
 }
 
 .popup-form {

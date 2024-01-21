@@ -304,6 +304,7 @@ div.posts>div.main_post{
     padding: 10px 10px 10px;
     font-size: 17px;
     width: 100%;
+    height: fit-content;
 }
 div.main_post>div.post_images{
     display: flex;
@@ -316,9 +317,9 @@ div.main_post>div.post_images{
 }
 div.post_images>img{
     display: flex;
-    max-height: 400px;
+    /* max-height: 400px; */
     min-width: 100px;
-    max-width: auto;
+    max-width: 100%;
     height: auto;
     width: 50%;
     /* object-fit: cover; */

@@ -70,6 +70,7 @@ def profile(request):
         'user_post': user_post,
         'post_images': post_images,
         'login_user': current_user,
+        'login_profile': user_profile,
     }
     # print(user_post)
     # print(user_profile.nick_name)
@@ -83,8 +84,9 @@ def requested_profile(request):
     try:
         requested_user_profile = UserProfile.objects.get(user_id=requested_user_id)
         requested_user = User.objects.get(id=requested_user_id)
-        login_user = User.objects.get(id=login_id)
         user_post = UserPost.objects.filter(user_id=requested_user_id).order_by('-datetime')
+        login_user = User.objects.get(id=login_id)
+        login_user_profile = UserProfile.objects.get(user_id=login_id)
     except UserProfile.DoesNotExist:
         # Handle the case where the UserProfile does not exist
         user_profile = None
@@ -96,6 +98,7 @@ def requested_profile(request):
         'current_user': requested_user,
         'user_post': user_post,
         'login_user': login_user,
+        'login_profile': login_user_profile,
     }
     print(requested_user_id, login_id)
     if requested_user_id == login_id:
