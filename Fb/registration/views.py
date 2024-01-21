@@ -62,7 +62,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()    #saving the User object from signup form
 
-            print("after safe")
+            print("after save")
             new_user = form.cleaned_data['username']
             print(new_user)
             user_instance = User.objects.get(username=new_user)     #also creating user_info object for user_profile model
