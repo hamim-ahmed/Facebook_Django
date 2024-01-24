@@ -43,8 +43,11 @@ Home
         <div class="profile">
 
           <div class="dropdown_profile">
-            
-            <img src={{user_profile.profile_photo.url}} alt="" >
+            {% if user_profile.profile_photo %}
+                <img src={{user_profile.profile_photo.url}} alt="upload profile" >
+            {% else %}
+                <i class="large user icon"></i>
+            {% endif %}
             <div><b>{{user_profile.user.first_name}}</b></div>
              <div class="dropdown-content">
                  <a href="{% url 'main:profile' %}">Profile</a>
@@ -120,7 +123,12 @@ Home
               {% if user_post %}
 
                 {% for posts in user_post %}
+<!--                   <div>{{posts.images.all|length}}</div>-->
+                   {% if posts.images.all|length == 1 %}   <!-- checking number of images for a post -->
+                 
+                   
 
+                   {% endif %}
                 <div class="posts">
 
                   <div class="top">
@@ -151,12 +159,17 @@ Home
                     <div> {{posts.post|linebreaks}} </div>
 
                     <div class="post_images">
-                      {% for images in post_images %}
+                      {% for images in posts.images.all %}
                           {% if images.post.id == posts.id %}        
                             
-                            <!-- <div class="images"> -->
+ 
+                            {% if posts.images.all|length == 1 %}
+                 
+                              <img class="post_image_single" src="{{ images.images.url }}" alt="Post Image">     <!-- if post has a single image css according to id post_mage-->
+                              {%else%}
                               <img src="{{ images.images.url }}" alt="Post Image">
-                            <!-- </div>   -->
+
+                            {% endif %}
 
                           {% endif %}
                       {% endfor %}
@@ -230,29 +243,33 @@ Home
   const app = Vue.createApp({
   delimiters: ['[[', ']]'], // Use double square brackets as delimiters
 
-   data() {
+  data() {
     return {
       flag: true,
       post_id: null,
-      device_max_width:820,
+      device_max_width:750,
+      flag1: false,
+      
     }
    },
+   
 
-
-   mounted() {
+  mounted() {
     //Add an event listener to run the checkScreenWidth method when the window is resized
     window.addEventListener('resize', this.changeCssClass);
 
    // Initial check when the component is mounted
     this.changeCssClass();
+    this.post_images();
   },
+
   beforeDestroy() {
     // Remove the event listener to prevent memory leaks when the component is destroyed
     window.removeEventListener('resize', this.changeCssClass);
   },
 
 
-   methods: {
+  methods: {
     showForm_createPost(){
       console.log("from postcreate showForm");
       const x = document.getElementById("popup_createpost");
@@ -293,6 +310,19 @@ Home
       dlte.value=value;
     },
     
+    //=============================== post Images sizing =================================
+    post_images(){
+     
+      var image_widths = document.querySelectorAll(".post_image_single");
+
+      for (var i = 0; i < image_widths.length; i++) {
+        image_widths[i].style.width = "100%";
+        // image_widths[i].style.max_height = "auto";
+      }
+      
+    },
+
+
     //========================== device screen resize logic here===============
     changeCssClass() {
       const screen_width=window.innerWidth;
@@ -318,7 +348,7 @@ Home
       
     },
 
-   }
+  }
 
   })
   app.mount('#content')

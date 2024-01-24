@@ -43,8 +43,12 @@ Home
           <div class="profile">
   
             <div class="dropdown_profile">
-              <img src={{user_profile.profile_photo.url}} alt="" >
-              <div><b>{{user_profile.user.first_name}}</b></div>
+              {% if user_profile.profile_photo %}
+                <img src={{user_profile.profile_photo.url}} alt="upload profile" >
+              {% else %}
+                  <i class="large user icon"></i>
+              {% endif %}
+              <div><b>{{login_profile.user.first_name}}</b></div>
                <div class="dropdown-content">
                    <a href="{% url 'main:profile' %}">Profile</a>
                    <a href="{% url 'main:logout' %}">Logout</a>
@@ -64,9 +68,15 @@ Home
 
 
               <div class="personal_info">
-                {% if user_profile.cover_photo %}
-                <div class="cover">
-                  <img id="cover_photo" src={{user_profile.cover_photo.url}} alt="">
+                
+                <div id="cover" class="cover">
+                  <div class="cover_image">
+                    {% if user_profile.cover_photo %}
+                    <img id="cover_photo" src={{user_profile.cover_photo.url}} alt="">
+                    {% endif %}
+                  </div>
+
+                  
                   <div class="dp">
                     <div>
                       {% if user_profile.profile_photo %}
@@ -94,41 +104,7 @@ Home
                     {% endif %}
                   </div>
                 </div>
-                {% endif %}
-                 
-                  <!-- {% if user_profile.cover_photo %}
-                  <div class="cover_photo">
-                    <img src={{user_profile.cover_photo.url}} alt="">
-                  </div>
-                  {% endif %}
-                  
-                  <div class="dp">
-                    {% if user_profile.profile_photo %}
-                      <img src={{user_profile.profile_photo.url}} alt="" >
-                    {% else %}
-                      <i class='massive user circle icon'></i>
-                    {% endif %}
-                    
-                  </div>
-                  <div class="info">
-        
-                    {% if current_user %}
-                    <div><h1>{{ current_user.first_name }} {{current_user.last_name}} ({{user_profile.nick_name}})</h1></div>
-                    <div><h3>{{ user_profile.profession }}</h3></div>
-                    <div><h4>{{current_user.email}} </h4></div>
-                    <div><h4>{{user_profile.address}}</h4></div>
-                    {% else %}
-                    <p>No user found</p>
-                    {% endif %}
-                    
-                    {% if current_user == login_user %}         
-                    <div v-if="flag" class="update_info">
-                      <br>
-                      <a class="" v-on:click="showForm">Edit Info </a>
-                    </div>
-                    {% endif %}
-
-                  </div> -->
+                
                   
               </div>
               
@@ -271,17 +247,33 @@ Home
                     <div class="main_post">
                               <!-- # to exclude the <br> tag as string -->
                       <div>{{posts.post|linebreaks}}</div>
-                      <div class="post_images">
+                      
+                      <!-- <div class="post_images">
                           {% for images in post_images %}
                               {% if images.post.id == posts.id %}
 
-                                <!-- <div class="images"> -->
+                                
                                   <img src="{{ images.images.url }}" alt="Post Image">
-                                <!-- </div>   -->
-
+                               
                               {% endif %}
                           {% endfor %}
-                        </div>
+                      </div> -->
+                      <div class="post_images">
+                        {% for images in posts.images.all %}
+                            {% if images.post.id == posts.id %}        
+                              
+   
+                              {% if posts.images.all|length == 1 %}
+                   
+                                <img class="post_image_single" src="{{ images.images.url }}" alt="Post Image">     <!-- if post has a single image css according to id post_mage-->
+                                {%else%}
+                                <img src="{{ images.images.url }}" alt="Post Image">
+  
+                              {% endif %}
+  
+                            {% endif %}
+                        {% endfor %}
+                      </div>
 
                         <!-- post edit form for the user -->
                       <div id="popupPost" class="popup-form">
@@ -350,6 +342,7 @@ Home
 
    // Initial check when the component is mounted
     this.changeCssClass();
+    this.post_images();
   },
   beforeDestroy() {
     // Remove the event listener to prevent memory leaks when the component is destroyed
@@ -409,13 +402,24 @@ Home
       update.value=value;
       dlte.value=value;
     },
+    
+    //=============================== post Images sizing =================================
+    post_images(){
+     
+     var image_widths = document.querySelectorAll(".post_image_single");
 
+     for (var i = 0; i < image_widths.length; i++) {
+       image_widths[i].style.width = "100%";
+       // image_widths[i].style.max_height = "auto";
+     }
+     
+   },
     //========================== device screen resize logic here===============
 
     changeCssClass() {
       const screen_width=window.innerWidth;
       console.log(screen_width);
-      var cover_image = document.getElementById("cover_photo");
+      var cover_image = document.getElementById("cover");
       var create_post = document.getElementById("create_post");
       var post_content = document.getElementById("post_content");
       // var class_navbar = document.getElementById("navbar");
