@@ -40,11 +40,27 @@ Home
             
           </div>
   
+<!--          <div class="profile">-->
+<!--  -->
+<!--            <div class="dropdown_profile">-->
+<!--              {% if user_profile.profile_photo %}-->
+<!--                <img src={{user_profile.profile_photo.url}} alt="upload profile" >-->
+<!--              {% else %}-->
+<!--                  <i class="large user icon"></i>-->
+<!--              {% endif %}-->
+<!--              <div><b>{{login_profile.user.first_name}}</b></div>-->
+<!--               <div class="dropdown-content">-->
+<!--                   <a href="{% url 'main:profile' %}">Profile</a>-->
+<!--                   <a href="{% url 'main:logout' %}">Logout</a>-->
+<!--               </div>-->
+<!--            </div>-->
+<!--           -->
+<!--          </div>-->
           <div class="profile">
-  
+
             <div class="dropdown_profile">
-              {% if user_profile.profile_photo %}
-                <img src={{user_profile.profile_photo.url}} alt="upload profile" >
+              {% if login_profile.profile_photo %}
+                <img src={{login_profile.profile_photo.url}} alt="upload profile" >
               {% else %}
                   <i class="large user icon"></i>
               {% endif %}
@@ -53,8 +69,8 @@ Home
                    <a href="{% url 'main:profile' %}">Profile</a>
                    <a href="{% url 'main:logout' %}">Logout</a>
                </div>
-           </div>
-           
+            </div>
+
           </div>
   
   

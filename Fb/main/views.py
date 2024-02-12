@@ -105,7 +105,9 @@ def requested_profile(request):
         return redirect('/profile')
     else:
         # if requested_user_profile.profile_photo:
-        #     print("photo here:", requested_user_profile.profile_photo)
+        print("photo here:", requested_user_profile.profile_photo)
+        print("photo here:", login_user_profile.profile_photo)
+
         return render(request, 'profile.html', context)
 
 
