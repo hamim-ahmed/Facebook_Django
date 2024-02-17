@@ -12,7 +12,7 @@ from django.contrib import messages
 
 from main.models import UserProfile, UserPost, PostImage
 from django.contrib.auth.models import User
-
+from .forms import ChangePasswordForm
 
 # @login_required
 def home(request):
@@ -222,6 +222,32 @@ def updatePost(request):
 def deletePost(request, id):
     print("from deletepost", id)
 
+@login_required
+def change_password(request):
+    # return render("<h2>from pass change<h2>")
+    # return HttpResponse(f"<h2>from pass change<h2>")
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            current_password = form.cleaned_data['current_password']
+            new_password = form.cleaned_data['new_password']
+            user = request.user
+
+            # Authenticate the user with the current password
+            if authenticate(username=user.username, password=current_password):
+                # Update the user's password to the new one
+                user.set_password(new_password)
+                user.save()
+                print("info:", current_password, new_password, user)
+                logout(request)
+                messages.success(request, 'Password changed successfully.')
+                return redirect('/signin')  # Redirect to user's profile page
+            else:
+                messages.error(request, 'Incorrect current password.')
+                return redirect('/changepass')
+    else:
+        form = ChangePasswordForm()
+    return render(request, 'changePass.html', {'form': form})
 @login_required
 def user_logout(request):
     # user_id = request.session.get('user_id')
