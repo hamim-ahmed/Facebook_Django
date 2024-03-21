@@ -353,7 +353,7 @@ div.content_post>div.posts{
     align-items: left;
     justify-content: top;
     width: 100%;
-    min-height: 200px;
+    /*min-height: 200px;*/
     background-color: white;
     margin-bottom: 10px;
     border-radius: 10px;
@@ -467,4 +467,16 @@ div.post_images>img{
 textarea.edit_post{
     width: 100%;
     height: 250px;
+}
+
+div.bottom{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 30px;
+    border-top: 0.5px solid darkgray;
+    margin-top: 5px;
+
 }
