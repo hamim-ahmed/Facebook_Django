@@ -163,6 +163,8 @@ div.createpost{
     margin-bottom: 10px;
     border-radius: 10px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0,0.3);
+    position: sticky;
+    top: 70px;
     
 }
 div.createpost>a>img{

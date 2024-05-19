@@ -243,11 +243,11 @@ def change_password(request):
                 messages.success(request, 'Password changed successfully.')
                 return redirect('/signin')  # Redirect to user's profile page
             else:
-                messages.error(request, 'Incorrect current password.')
+                messages.error(request, 'Incorrect info or pass change failed.')
                 return redirect('/changepass')
     else:
         form = ChangePasswordForm()
-    return render(request, 'changePass.html', {'form': form})
+    return render(request, 'profile.html', {'form': form})
 @login_required
 def user_logout(request):
     # user_id = request.session.get('user_id')
